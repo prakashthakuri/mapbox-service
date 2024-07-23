@@ -1,0 +1,33 @@
+{
+  "name": "mapbox-service",
+  "version": "1.0.0",
+  "description": "mapbox-service to create polygon",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prakashthakuri/mapbox-service.git"
+  },
+  "keywords": [
+    "nodejs",
+    "graphql"
+  ],
+  "author": "Prakash Thakuri",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/prakashthakuri/mapbox-service/issues"
+  },
+  "homepage": "https://github.com/prakashthakuri/mapbox-service#readme",
+  "dependencies": {
+    "@apollo/server": "^4.10.5",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "graphql": "^16.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
