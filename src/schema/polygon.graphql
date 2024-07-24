@@ -1,7 +1,8 @@
-type Polygon {
+type Polygon 
+{
   id: ID!
   name: String!
-  coordinates: []!
+  coordinates: [[Float!]!]!
   created_at: String
   updated_at: String
 }
@@ -12,10 +13,11 @@ type Query {
 
 input PolygonInput {
   name: String!
-  coordinates: [[Float]]!
+  coordinates: [[Float!]!]!
 
 }
 
-type Mutation {
+type Mutation 
+{
   addPolygon(input: PolygonInput): Polygon
 }
