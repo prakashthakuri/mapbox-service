@@ -1,10 +1,12 @@
 import { DataTypes } from 'sequelize';
 
 const PolygonModel = (sequelize) => {
+  console.log("hello from polygon model")
     const Polygon = sequelize.define('Polygon', {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+
       },
       coordinates: {
         type: DataTypes.JSON,
@@ -13,17 +15,19 @@ const PolygonModel = (sequelize) => {
       createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
+              field: 'created_at'
       },
       updatedAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,
-      },
+        field: 'updated_at'
+            },
     }, {
       tableName: 'polygons',
       timestamps: true,
     });
   
-    Polygon.beforeUpdate((polygon, options) => {
+    Polygon.beforeUpdate((polygon) => {
       polygon.updatedAt = new Date();
     });
   

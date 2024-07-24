@@ -1,6 +1,6 @@
 import { polygonResolver } from "./polygonResolver.js";
 
-const resolvers = {
+export const resolvers = {
     Query: {
         ...polygonResolver.Query
     },

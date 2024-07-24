@@ -1,6 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import { readFile } from 'node:fs/promises';
 import { setupApolloServer } from './src//middlewares/apolloServer.js';
 import * as dotenv from 'dotenv'
 import databaseConnection from './src/models/index.js';
