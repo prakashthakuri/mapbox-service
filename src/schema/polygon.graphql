@@ -1,0 +1,18 @@
+type Polygon {
+  id: ID!
+  name: String!
+  coordinates: [[Float]]!
+}
+
+type Query {
+  getPolygons: [Polygon]
+}
+
+input PolygonInput {
+  name: String!
+  coordinates: [[Float]]!
+}
+
+type Mutation {
+  addPolygon(input: PolygonInput): Polygon
+}

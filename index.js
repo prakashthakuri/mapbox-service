@@ -1,8 +1,11 @@
 import express from 'express';
 import cors from 'cors';
-import { setupApolloServer } from './middlewares/apolloServer.js';
+import { readFile } from 'node:fs/promises';
+import { setupApolloServer } from './src//middlewares/apolloServer.js';
+import * as dotenv from 'dotenv'
+import databaseConnection from './src/models/index.js';
 
-
+dotenv.config();
 
 const app = express()
 app.use(cors(), express.json())
@@ -14,6 +17,13 @@ app.get('/live', (req, res) => {
 const apolloGraphQLMiddleware = await setupApolloServer();
 app.use('/graphql', apolloGraphQLMiddleware);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+app.listen(port, async () => {
+  console.log(`Example app listening on port ${port}`);
+  try {
+    await databaseConnection.sequelize.authenticate();
+    console.log('Connection to the database has been established successfully.');
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+});
+
