@@ -4,10 +4,12 @@ import { setupApolloServer } from './src//middlewares/apolloServer.js';
 import * as dotenv from 'dotenv'
 import databaseConnection from './src/models/index.js';
 import { sessionMiddleware } from './src/middlewares/sessionMiddleware.js';
+import { getLoggerInstance } from './src/middlewares/logger.js';
 
 dotenv.config();
 
 const app = express()
+const logger = getLoggerInstance()
 app.use(cors(), express.json())
 
 const port = 8080
@@ -19,12 +21,13 @@ const apolloGraphQLMiddleware = await setupApolloServer();
 app.use('/graphql', apolloGraphQLMiddleware);
 
 app.listen(port, async () => {
-  console.log(`Example app listening on port ${port}`);
+  logger.info(`MapBox-service is running on port ${port}`)
   try {
     await databaseConnection.sequelize.authenticate();
-    console.log('Connection to the database has been established successfully.');
+   logger.info('Connection to the database has been established successfully.')
   } catch (error) {
-    console.error('Unable to connect to the database:', error);
+    logger.error('Unable to connect to the database:', error);
+
   }
 });
 

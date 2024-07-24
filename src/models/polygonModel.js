@@ -1,7 +1,6 @@
 import { DataTypes } from 'sequelize';
 
 const PolygonModel = (sequelize) => {
-  console.log("hello from polygon model")
     const Polygon = sequelize.define('Polygon', {
       name: {
         type: DataTypes.STRING,
