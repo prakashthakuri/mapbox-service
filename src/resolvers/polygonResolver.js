@@ -11,14 +11,14 @@ export const polygonResolver = {
             return polygons;
         },
         getPolygonsBySession: async (_, { sessionId }) => {
-            const polygons = await Polygon.findAll();
+            const polygons = await Polygon.findAll({where: {sessionId}});
             return polygons;
         }
     },
     Mutation: {
-        addPolygon: async (_, {input}) => {
+        addPolygon: async (_, {input}, {sessionId}) => {
             validatePolygon(input.coordinates);
-            const newPolygon = await Polygon.create(input)
+            const newPolygon = await Polygon.create(...input, sessionId)
             console.log(newPolygon);
             return newPolygon
         }

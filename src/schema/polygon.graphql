@@ -5,11 +5,12 @@ type Polygon
   coordinates: [[Float!]!]!
   created_at: String
   updated_at: String
+  sessionId: String
 }
 
 type Query {
   getPolygons: [Polygon],
-    getPolygonsBySession(): [Polygon]
+  getPolygonsBySession: [Polygon]
 }
 
 input PolygonInput {
