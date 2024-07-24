@@ -39,9 +39,26 @@ export const polygonResolver = {
           logger.info(`New polygon data has been updated for ${sessionId} `)
           return newPolygon;
         } catch (error) {
-          logger.error(`Error in addPolygon: ${error.message}`);
+          logger.error(`Error in adding a new Polygon: ${error.message}`);
           throw new Error('Failed to add polygon');
         }
-      }
+      },
+      updatePolygon: async (_, { id, input }) => {
+        try {
+          validatePolygon(input.coordinates);
+          const polygon = await Polygon.findByPk(id);
+          if (!polygon) {
+            throw new Error("Polygon not found");
+          }
+          await polygon.update(input);
+          await redis.del('polygons'); // Clear the cache
+          return polygon;
+        } catch(error){
+            logger.error(`Error in updating existing Polygon: ${error.message}`);
+            throw new Error('Failed to update polygon');
+        }
+  
+  
     }
-  };
+  }
+}

@@ -22,4 +22,5 @@ input PolygonInput {
 type Mutation 
 {
   addPolygon(input: PolygonInput): Polygon
+  updatePolygon(id: ID!, input: PolygonInput): Polygon
 }
