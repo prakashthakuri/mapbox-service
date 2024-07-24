@@ -11,8 +11,10 @@ export async function setupApolloServer() {
 
   try {
     const typeDefs = await readFile(new URL('../schema/polygon.graphql', import.meta.url), 'utf-8');
-    const apolloServer = new ApolloServer({ typeDefs, resolvers });
-    
+    const apolloServer = new ApolloServer({
+      typeDefs,
+      resolvers
+  });
     await apolloServer.start();
     
     logger.info('Apollo server started successfully');

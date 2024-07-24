@@ -3,22 +3,22 @@ import cors from 'cors';
 import { setupApolloServer } from './src//middlewares/apolloServer.js';
 import * as dotenv from 'dotenv'
 import databaseConnection from './src/models/index.js';
-import { sessionMiddleware } from './src/middlewares/sessionMiddleware.js';
 import { getLoggerInstance } from './src/middlewares/logger.js';
 
 dotenv.config();
-
+const port = process.env.PORT || 8080
 const app = express()
+
 const logger = getLoggerInstance()
 app.use(cors(), express.json())
 
-const port = 8080
-app.use(sessionMiddleware)
+
+
 app.get('/live', (req, res) => {
-  res.send('Server is live')
+  res.send(`Server is live ${req.sessionId}`)
 })
 const apolloGraphQLMiddleware = await setupApolloServer();
-app.use('/graphql', apolloGraphQLMiddleware);
+app.use('/graphql' , apolloGraphQLMiddleware);
 
 app.listen(port, async () => {
   logger.info(`MapBox-service is running on port ${port}`)

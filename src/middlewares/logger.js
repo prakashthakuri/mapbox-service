@@ -6,7 +6,6 @@ const { format, transports } = winston;
 
 let uuid;
 let loggerInstance;  
-let clientIP;
 let startTime;
 let pingId;
 
@@ -15,7 +14,7 @@ const logFormat = format.printf(({ message, level }) => {
   const timestamp = dt.toUTC().toISO();
   const { url, status, body } = message?.e?.extensions?.response || {};
   const elapsedTime = new Date().getTime() - startTime;
-  return `time="${timestamp}" level=${level} msg=${JSON.stringify(body || message?.Msg || message, null, 0)}${clientIP ? ` clientIp=${clientIP} ` : ''}${
+  return `time="${timestamp}" level=${level} msg=${JSON.stringify(body || message?.Msg || message, null, 0)}${
     elapsedTime ? ` elapsedTime="${elapsedTime}ms" ` : ''} requestId="${uuid}" ${status ? `status=${status} ` : ''} ${pingId ? `userId=${pingId} ` : ''}${url ? `request="${url}" ` : ''}`;
 });
 

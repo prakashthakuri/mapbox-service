@@ -1,22 +1,24 @@
+scalar JSON
+# // I wasted some time here in coordinates because the data type was not working but I found out I have random wrong vales of database :sob: 
 type Polygon 
 {
   id: ID!
   name: String!
-  coordinates: [[Float!]!]!
-  created_at: String
+  coordinates: JSON!
+    created_at: String
   updated_at: String
-  sessionId: String
+  session_id: String
 }
 
 type Query {
+  generateSessionId: String!
   getPolygons: [Polygon],
   getPolygonsBySession: [Polygon]
 }
 
 input PolygonInput {
   name: String!
-  coordinates: [[Float!]!]!
-
+  coordinates: JSON!
 }
 
 type Mutation 
