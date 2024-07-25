@@ -17,14 +17,13 @@ const PolygonModel = (sequelize) => {
         allowNull: false,
         get() {
           const rawValue = this.getDataValue('coordinates');
-          // Ensure that coordinates are returned as a nested array
           return typeof rawValue === 'string' ? JSON.parse(rawValue) : rawValue;
         }
 
       },
       sessionId: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
         field: 'session_id'
 
       },
