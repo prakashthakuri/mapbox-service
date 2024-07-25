@@ -2,7 +2,7 @@ import GraphQLJSON from "graphql-type-json";
 import { getLoggerInstance } from "../middlewares/logger.js";
 import databaseConnection from "../models/index.js"
 import { validatePolygon } from "../util.js"
-import { uuid } from "uuidv4";
+import { v4 as uuidv4 } from 'uuid';
 
 const {Polygon} = databaseConnection
 
@@ -12,7 +12,7 @@ export const polygonResolver = {
     JSON: GraphQLJSON,
     Query: {
         generateSessionId: () => {
-            const sessionId = uuid()
+            const sessionId = uuidv4()
             logger.info(`Generated new sessionId: ${sessionId}`);
             return sessionId;
           },
