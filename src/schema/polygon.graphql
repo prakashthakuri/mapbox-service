@@ -19,10 +19,30 @@ type Query {
 input PolygonInput {
   name: String!
   coordinates: JSON!
+  session_id: String
 }
+
 
 type Mutation 
 {
-  addPolygon(input: PolygonInput): Polygon
+  addPolygon(input: PolygonInput!): Polygon!
   updatePolygon(id: ID!, input: PolygonInput): Polygon
+}
+
+
+type Query {
+  generateSessionId: String!
+  getPolygons: [Polygon!]
+  getPolygonsBySession(session_id: String!): [Polygon!]
+}
+
+type Mutation {
+  addPolygon(input: PolygonInput!, session_id: String ): Polygon!
+  updatePolygon(id: ID!, input: PolygonInput!): Polygon!
+}
+
+input PolygonInput {
+  name: String!
+  coordinates: JSON!
+  session_id: String
 }

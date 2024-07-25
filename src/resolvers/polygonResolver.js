@@ -21,17 +21,16 @@ export const polygonResolver = {
         try {
           const polygons = await Polygon.findAll();
           logger.info(`Fetched polygons from database `)
-          console.log(polygons)
           return polygons;
                 } catch (error) {
           logger.error(`Error in getPolygons: ${error.message}`);
           throw new Error('Failed to fetch polygons');
         }
       },
-      getPolygonsBySession: async (_, { sessionId }) => {
-        logger.info('Query: getPolygonsBySession called', { sessionId });
+      getPolygonsBySession: async (_, __, { session_id }) => {
+        logger.info('Query: getPolygonsBySession called', { session_id });
         try {
-          const polygons = await Polygon.findAll({ where: { sessionId } });
+          const polygons = await Polygon.findAll({ where: { session_id } });
           return polygons;
         } catch (error) {
           logger.error(`Error in getPolygonsBySession: ${error.message}`);
@@ -40,35 +39,33 @@ export const polygonResolver = {
       }
     },
     Mutation: {
-      addPolygon: async (_, { input }, {sessionId}) => {
-        logger.info('Mutation: addPolygon called');
-        console.log(sessionId, "REq")
-        try {
-          validatePolygon(input.coordinates);
-          const newPolygon = await Polygon.create({ ...input, sessionId});
-          logger.info(`New polygon data has been updated for ${sessionId} `)
-          return newPolygon;
-        } catch (error) {
-          logger.error(`Error in adding a new Polygon: ${error.message}`);
-          throw new Error('Failed to add polygon');
-        }
-      },
-      updatePolygon: async (_, { id, input }, {sessionId}) => {
-        try {
-          validatePolygon(input.coordinates);
-          const polygon = await Polygon.findByPk(id);
-          if (!polygon) {
-            logger.error(`polygon not found!`)
-            throw new Error("Polygon not found");
+        addPolygon: async (_, { input}) => {
+          logger.info('Mutation: addPolygon called ');
+          try {
+            validatePolygon(input.coordinates);
+            const newPolygon = await Polygon.create({ ...input,  });
+            logger.info(`New polygon data has been updated for ${input?.session_id}`);
+            return newPolygon;
+          } catch (error) {
+            logger.error(`Error in adding a new Polygon: ${error.message}`);
+            throw new Error('Failed to add polygon');
           }
-          await polygon.update(input);
-          return polygon;
-        } catch(error){
+        },
+        updatePolygon: async (_, { id, input, session_id }) => {
+          logger.info('Mutation: updatePolygon called with session_id:', session_id);
+          try {
+            validatePolygon(input.coordinates);
+            const polygon = await Polygon.findByPk(id);
+            if (!polygon) {
+              logger.error(`Polygon not found!`);
+              throw new Error("Polygon not found");
+            }
+            await polygon.update({ ...input, session_id });
+            return polygon;
+          } catch (error) {
             logger.error(`Error in updating existing Polygon: ${error.message}`);
             throw new Error('Failed to update polygon');
+          }
         }
-  
-  
-    }
-  }
-}
+      }
+    };
