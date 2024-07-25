@@ -1,11 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import { setupApolloServer } from './src//middlewares/apolloServer.js';
-import * as dotenv from 'dotenv'
+import "dotenv/config.js";
 import databaseConnection from './src/models/index.js';
 import { getLoggerInstance } from './src/middlewares/logger.js';
 
-dotenv.config();
 const port = process.env.PORT || 8080
 const app = express()
 
