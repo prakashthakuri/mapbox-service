@@ -24,6 +24,7 @@
   "homepage": "https://github.com/prakashthakuri/mapbox-service#readme",
   "dependencies": {
     "@apollo/server": "^4.10.5",
+    "@turf/turf": "^7.0.0",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
     "express": "^4.19.2",
