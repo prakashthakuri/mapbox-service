@@ -29,8 +29,9 @@ export const polygonResolver = {
           return JSON.parse(cachedPolygons);
         }
 
-        const polygons = await Polygon.findAll();
-        await redisClient.setEx(cacheKey, CACHE_EXPIRATION, JSON.stringify(polygons));
+        const polygons = await Polygon.findAll({
+            order: [['createdAt', 'DESC']]  // this is because the first entries were done using playground and no validator
+          });        await redisClient.setEx(cacheKey, CACHE_EXPIRATION, JSON.stringify(polygons));
         logger.info('Fetched polygons from database and cached in Redis');
         return polygons;
       } catch (error) {
@@ -49,8 +50,10 @@ export const polygonResolver = {
           return JSON.parse(cachedPolygons);
         }
 
-        const polygons = await Polygon.findAll({ where: { session_id } });
-        await redisClient.setEx(cacheKey, CACHE_EXPIRATION, JSON.stringify(polygons));
+        const polygons = await Polygon.findAll({
+            where: { session_id },
+            order: [['createdAt', 'DESC']] 
+          });        await redisClient.setEx(cacheKey, CACHE_EXPIRATION, JSON.stringify(polygons));
         logger.info(`Fetched polygons for session ${session_id} from database and cached in Redis`);
         return polygons;
       } catch (error) {
