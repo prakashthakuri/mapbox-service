@@ -8,8 +8,13 @@ import { getLoggerInstance } from './src/middlewares/logger.js';
 const port = process.env.PORT || 8080
 const app = express()
 
+const corsOptions = {
+  origin: 'https://master.d6jtn3gf9p3oj.amplifyapp.com/', 
+  optionsSuccessStatus: 200,
+};
+
 const logger = getLoggerInstance()
-app.use(cors(), express.json())
+app.use(cors(corsOptions), express.json())
 
 
 
