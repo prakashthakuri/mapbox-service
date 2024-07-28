@@ -7,5 +7,5 @@ export const DB_NAME =  process.env.DB_NAME || 'polygon-34545';
 export const DB_HOST = process.env.DB_HOST || 'polygon-database.5345343.us-east-2.rds.amazonaws.com' 
 export const DB_PORT = process.env.DB_PORT || '5432'
 
-export const REDIS_URL = process.env.REDIS_URL || 'redis://localhost:6379'
+export const REDIS_URL = process.env.REDIS_TEMPORARY_URL || 'redis://localhost:6379'
 
