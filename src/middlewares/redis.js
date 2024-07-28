@@ -1,12 +1,16 @@
 import { createClient } from 'redis';
-import { REDIS_URL } from '../settings';
-
+import { REDIS_URL } from '../settings.js';
 
 let redisClient;
 
 try {
+  const redisUrl = REDIS_URL;
   redisClient = createClient({
-    url: REDIS_URL
+    url: redisUrl,
+    socket: {
+      tls: true,
+      rejectUnauthorized: false 
+    }
   });
 
   redisClient.on('error', (err) => {
