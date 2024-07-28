@@ -9,7 +9,7 @@ const port = process.env.PORT || 8080
 const app = express()
 
 const corsOptions = {
-  origin: 'https://master.d6jtn3gf9p3oj.amplifyapp.com/', 
+  origin: "*", 
   optionsSuccessStatus: 200,
 };
 
